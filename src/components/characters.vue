@@ -9,7 +9,7 @@
   >
     <!-- Up left diagonal 2 -->
     <rect
-      v-if="layout.uld2 === 1"
+      v-show="layout.uld2 === 1"
       width="10.6968"
       height="262.271"
       rx="0"
@@ -19,7 +19,7 @@
     />
     <!-- Up right diagonal 2 -->
     <rect
-      v-if="layout.urd2 === 1"
+      v-show="layout.urd2 === 1"
       width="10.6968"
       height="262.271"
       rx="0"
@@ -29,7 +29,7 @@
     />
     <!-- Down right diagonal 2 -->
     <rect
-      v-if="layout.drd2 === 1"
+      v-show="layout.drd2 === 1"
       width="10.6968"
       height="262.271"
       rx="0"
@@ -39,7 +39,7 @@
     />
     <!-- Down left diagonal 2 -->
     <rect
-      v-if="layout.dld2 === 1"
+      v-show="layout.dld2 === 1"
       width="10.6968"
       height="262.271"
       rx="0"
@@ -226,7 +226,7 @@ const props = defineProps<{
   number: number;
 }>();
 
-const layout = ref({
+const layout = ref<Record<string, number>>({
   // Up left
   ubl: 0, // Up bottom left
   ul: 0, // Up left
@@ -253,12 +253,17 @@ const layout = ref({
   drd2: 0 // Down right diagonal 2
 });
 
-const handleLayout = (n: number) => {
+const parseNumber = (n: number) => {
   const padded = n.toString().padStart(4, "0");
-  const [ones, tens, hundreds, thousands] = padded
+  return padded
     .split("")
     .reverse()
     .map((n) => +n);
+};
+
+const handleLayout = (n: number) => {
+  for (var i in layout.value) layout.value[i] = 0;
+  const [ones, tens, hundreds, thousands] = parseNumber(n);
   switch (ones) {
     case 1:
       layout.value.utr = 1;
