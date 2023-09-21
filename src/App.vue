@@ -1,26 +1,23 @@
 <template>
-  <div>Hello</div>
+  <main>
+    <characters width="300" height="300" :number="9433" />
+  </main>
 </template>
 
 <script setup lang="ts">
-//
+import characters from "./components/characters.vue";
 </script>
 
 <style scoped>
-.bottom-right {
-  position: fixed;
-  bottom: 25px;
-  right: 25px;
-  display: flex;
-  gap: 10px;
+.character {
+  position: absolute;
 }
 
-.result {
-  position: absolute;
-  font-size: 64px;
-  font-weight: bold;
-  color: white;
-  top: 25px;
-  left: 25px;
+main {
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
 </style>

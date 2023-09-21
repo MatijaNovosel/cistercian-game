@@ -1,8 +1,17 @@
+html {
+  height: 100%;
+}
+
 body {
   margin: 0px;
   font-family: "Roboto";
+  height: 100%;
 }
 
 canvas {
   display: block;
+}
+
+#app {
+  height: 100%;
 }
