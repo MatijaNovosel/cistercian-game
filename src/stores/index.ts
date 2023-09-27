@@ -20,6 +20,15 @@ export const useToastStore = defineStore("toast", () => {
       color,
       permanent
     });
+
+    if (!permanent) {
+      setTimeout(() => {
+        const toastIdx = toasts.value.findIndex((t) => t.id === id);
+        if (toastIdx !== -1) {
+          toasts.value.splice(toastIdx, 1);
+        }
+      }, timeout);
+    }
   };
 
   const remove = () => {

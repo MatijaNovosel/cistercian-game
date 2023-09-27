@@ -262,7 +262,7 @@ const parseNumber = (n: number) => {
 };
 
 const handleLayout = (n: number) => {
-  for (var i in layout.value) layout.value[i] = 0;
+  for (const i in layout.value) layout.value[i] = 0;
   const [ones, tens, hundreds, thousands] = parseNumber(n);
   switch (ones) {
     case 1:

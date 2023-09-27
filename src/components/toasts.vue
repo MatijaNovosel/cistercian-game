@@ -1,22 +1,24 @@
 <template>
-  <div class="toast-ctr">
-    <div class="toast" v-for="{ text } in toasts">
+  <transition-group name="list" tag="div" class="toast-ctr">
+    <div
+      class="toast"
+      v-for="{ text, id, color } in toasts"
+      :key="id"
+      :style="{
+        backgroundColor: color
+      }"
+    >
       {{ text }}
     </div>
-  </div>
+  </transition-group>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { storeToRefs } from "pinia";
+import { useToastStore } from "../stores";
 
-const toasts = ref([
-  {
-    text: "toast 1"
-  },
-  {
-    text: "toast 2"
-  }
-]);
+const toastStore = useToastStore();
+const { toasts } = storeToRefs(toastStore);
 </script>
 
 <style scoped>
@@ -25,6 +27,7 @@ const toasts = ref([
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   gap: 10px;
   top: 5px;
   margin: 0 auto;
@@ -33,7 +36,6 @@ const toasts = ref([
 }
 
 .toast {
-  background-color: rgb(49, 124, 49);
   padding: 8px;
   border-radius: 4px;
   color: white;
