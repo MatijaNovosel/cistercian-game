@@ -4,7 +4,7 @@
     <h1>
       {{ n }}
     </h1>
-    <characters width="300" height="300" :number="n" />
+    <characters class="characters" width="300" height="300" :number="n" />
     <div class="inputs">
       <div class="numbers">
         <input ref="digit1" class="number" v-model="guessDigit1" />
@@ -18,6 +18,7 @@
 </template>
 
 <script setup lang="ts">
+import { onKeyStroke } from "@vueuse/core/index.cjs";
 import { randInt } from "matija-utils";
 import { ref } from "vue";
 import btn from "./components/btn.vue";
@@ -56,16 +57,22 @@ const guess = () => {
   }
   const combined = `${guessDigit1.value}${guessDigit2.value}${guessDigit3.value}${guessDigit4.value}`;
   const parsed = parseInt(combined);
-  if (Number.isNaN(parsed)) {
+  if (combined.length > 4 || Number.isNaN(parsed)) {
     return;
   }
   if (parsed === n.value) {
     toastStore.add("Good job!", "#4BB543");
     reset();
+    generateNumber();
   } else {
     toastStore.add("Nope!", "#f23333");
   }
 };
+
+onKeyStroke("Enter", (e) => {
+  e.preventDefault();
+  guess();
+});
 </script>
 
 <style scoped>
@@ -75,7 +82,7 @@ main {
   align-items: center;
   height: 100%;
   flex-direction: column;
-  gap: 40px;
+  gap: 20px;
 }
 
 .inputs {
@@ -95,8 +102,14 @@ main {
   border-radius: 8px;
   outline: none;
   border: none;
-  background-color: rgb(245, 235, 235);
+  background-color: #f5ebeb;
   text-align: center;
   font-size: 16px;
+}
+
+.characters {
+  background-color: #f5ebeb6b;
+  padding: 30px;
+  border-radius: 12px;
 }
 </style>
