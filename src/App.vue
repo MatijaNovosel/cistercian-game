@@ -1,7 +1,6 @@
 <template>
   <toasts />
   <main>
-    <parallax />
     <h1>
       {{ n }}
     </h1>
@@ -17,7 +16,6 @@
 import { randInt } from "matija-utils";
 import { ref } from "vue";
 import characters from "./components/characters.vue";
-import parallax from "./components/parallax.vue";
 import toasts from "./components/toasts.vue";
 
 const n = ref(randInt(1, 9999));
