@@ -30,7 +30,7 @@ withDefaults(
   outline: none;
   font-size: 16px;
   border-radius: 6px;
-  background-color: #2ecc71;
+  background-color: var(--primary);
   color: #ffffff;
   transition: background-color 0.3s;
   cursor: pointer;
@@ -38,7 +38,7 @@ withDefaults(
 
 .btn:hover,
 .btn:focus {
-  background-color: #27ae60;
+  background-color: var(--primary-1);
 }
 
 .btn > * {

@@ -82,10 +82,10 @@ main {
   align-items: center;
   height: 100%;
   flex-direction: column;
-  gap: 20px;
 }
 
 .inputs {
+  margin-top: 20px;
   display: flex;
   gap: 20px;
   flex-direction: column;
@@ -97,18 +97,19 @@ main {
 }
 
 .number {
-  width: 40px;
-  height: 40px;
+  width: 60px;
+  height: 60px;
   border-radius: 8px;
   outline: none;
   border: none;
-  background-color: #f5ebeb;
+  background-color: var(--secondary);
   text-align: center;
-  font-size: 16px;
+  font-size: 24px;
+  color: white;
 }
 
 .characters {
-  background-color: #f5ebeb6b;
+  background-color: var(--accent);
   padding: 30px;
   border-radius: 12px;
 }

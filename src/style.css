@@ -1,3 +1,10 @@
+:root {
+  --primary: #fa7966;
+  --primary-1: #c76151;
+  --secondary: #fcb1a6;
+  --accent: #d02106;
+}
+
 html {
   height: 100%;
 }
