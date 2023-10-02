@@ -1,10 +1,16 @@
 <template>
   <toasts />
+  <div class="top-right">
+    {{ numberOfAttempts }} / {{ MAX_NUMBER_OF_ATTEMPTS }}
+  </div>
   <main>
     <h1>
       {{ n }}
     </h1>
-    <characters class="characters" width="300" height="300" :number="n" />
+    <div class="characters-ctr">
+      <characters class="characters" width="300" height="300" :number="n" />
+      <spinner v-show="loading" class="spinner" />
+    </div>
     <div class="inputs">
       <div class="numbers">
         <input ref="digit1" class="number" v-model="guessDigit1" />
@@ -23,12 +29,17 @@ import { randInt } from "matija-utils";
 import { ref } from "vue";
 import btn from "./components/btn.vue";
 import characters from "./components/characters.vue";
+import spinner from "./components/spinner.vue";
 import toasts from "./components/toasts.vue";
 import { useToastStore } from "./stores";
+
+const MAX_NUMBER_OF_ATTEMPTS = 5;
 
 const toastStore = useToastStore();
 
 const n = ref(randInt(1, 9999));
+const numberOfAttempts = ref(0);
+const loading = ref(false);
 
 const guessDigit1 = ref<string | null | undefined>("0");
 const guessDigit2 = ref<string | null | undefined>("0");
@@ -61,9 +72,15 @@ const guess = () => {
     return;
   }
   if (parsed === n.value) {
+    numberOfAttempts.value++;
     toastStore.add("Good job!", "#4BB543");
-    reset();
-    generateNumber();
+    toastStore.add("Get ready in 3, 2, 1...", "#4BB543");
+    loading.value = true;
+    setTimeout(() => {
+      reset();
+      generateNumber();
+      loading.value = false;
+    }, 3000);
   } else {
     toastStore.add("Nope!", "#f23333");
   }
@@ -112,5 +129,27 @@ main {
   background-color: var(--accent);
   padding: 30px;
   border-radius: 12px;
+}
+
+.top-right {
+  position: fixed;
+  background-color: var(--primary);
+  color: white;
+  right: 25px;
+  top: 25px;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.spinner {
+  position: absolute;
+  margin-right: 32px;
+}
+
+.characters-ctr {
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
 }
 </style>
