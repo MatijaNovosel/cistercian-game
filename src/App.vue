@@ -7,7 +7,8 @@
     <div @click="showHelp" class="help">?</div>
   </div>
   <main>
-    <div v-if="finished">
+    <div class="finish-ctr" v-if="finished">
+      <img src="/cat.gif" />
       <h1>You did it! 🎉🎉🎉</h1>
     </div>
     <div v-else>
@@ -135,6 +136,11 @@ main {
   justify-content: center;
   align-items: center;
   height: 100%;
+  flex-direction: column;
+}
+
+.finish-ctr {
+  display: flex;
   flex-direction: column;
 }
 
