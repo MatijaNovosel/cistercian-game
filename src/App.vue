@@ -1,27 +1,29 @@
 <template>
   <toasts />
   <div class="top-right">
-    <div class="attempts">
+    <div class="attempts" :style="attemptsCtrStyle">
       {{ numberOfAttempts }} / {{ MAX_NUMBER_OF_ATTEMPTS }}
     </div>
     <div @click="showHelp" class="help">?</div>
   </div>
   <main>
-    <h1>
-      {{ n }}
-    </h1>
-    <div class="characters-ctr">
-      <characters class="characters" width="300" height="300" :number="n" />
-      <spinner v-show="loading" class="spinner" />
+    <div v-if="finished">
+      <h1>You did it! 🎉🎉🎉</h1>
     </div>
-    <div class="inputs">
-      <div class="numbers">
-        <input class="number" v-model="guessDigit1" />
-        <input class="number" v-model="guessDigit2" />
-        <input class="number" v-model="guessDigit3" />
-        <input class="number" v-model="guessDigit4" />
+    <div v-else>
+      <div class="characters-ctr">
+        <characters class="characters" width="300" height="300" :number="n" />
+        <spinner v-show="loading" class="spinner" />
       </div>
-      <btn @click="guess">Guess</btn>
+      <div class="inputs">
+        <div class="numbers">
+          <input class="number" v-model="guessDigit1" />
+          <input class="number" v-model="guessDigit2" />
+          <input class="number" v-model="guessDigit3" />
+          <input class="number" v-model="guessDigit4" />
+        </div>
+        <btn @click="guess">Guess</btn>
+      </div>
     </div>
   </main>
   <teleport to="body">
@@ -38,8 +40,9 @@
 
 <script setup lang="ts">
 import { onKeyStroke } from "@vueuse/core";
+import confetti from "canvas-confetti";
 import { randInt } from "matija-utils";
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import btn from "./components/btn.vue";
 import characters from "./components/characters.vue";
 import modal from "./components/modal.vue";
@@ -55,11 +58,16 @@ const n = ref(randInt(1, 9999));
 const numberOfAttempts = ref(0);
 const loading = ref(false);
 const showModal = ref(false);
+const finished = ref(false);
 
 const guessDigit1 = ref<string | null | undefined>("0");
 const guessDigit2 = ref<string | null | undefined>("0");
 const guessDigit3 = ref<string | null | undefined>("0");
 const guessDigit4 = ref<string | null | undefined>("0");
+
+const attemptsCtrStyle = computed(() => ({
+  backgroundColor: finished.value ? "#4BB543" : "#FA7966"
+}));
 
 const generateNumber = () => {
   n.value = randInt(1, 9999);
@@ -93,6 +101,16 @@ const guess = () => {
   if (parsed === n.value) {
     numberOfAttempts.value++;
     toastStore.add("Good job!", "#4BB543");
+    if (numberOfAttempts.value === MAX_NUMBER_OF_ATTEMPTS) {
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 }
+      });
+      toastStore.add("You did it!", "#4BB543");
+      finished.value = true;
+      return;
+    }
     toastStore.add("Get ready in 3, 2, 1...", "#4BB543");
     loading.value = true;
     setTimeout(() => {
