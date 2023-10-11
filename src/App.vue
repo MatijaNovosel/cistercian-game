@@ -222,9 +222,10 @@ main {
 #help-img {
   width: 350px;
   height: 350px;
+  margin: 0 auto;
 }
 
-@media (min-width: 481px) and (max-width: 767px) {
+@media (max-width: 767px) {
   #help-img {
     width: 90%;
     height: 90%;

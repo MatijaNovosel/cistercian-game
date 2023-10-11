@@ -61,7 +61,9 @@ onClickOutside(dialog, () => {
 }
 
 .modal-body {
-  margin: 20px 20px 0px 20px;
+  display: flex;
+  align-items: center;
+  margin: 20px 0px 0px 0px;
 }
 
 .modal-default-button {
