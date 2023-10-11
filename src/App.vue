@@ -222,6 +222,7 @@ main {
 #help-img {
   width: 350px;
   height: 350px;
+  margin: 0 auto;
 }
 
 @media (max-width: 767px) {
