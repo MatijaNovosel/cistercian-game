@@ -34,6 +34,7 @@ const { toasts } = storeToRefs(toastStore);
   left: 0;
   right: 0;
   z-index: 999;
+  width: fit-content;
 }
 
 .toast {
