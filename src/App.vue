@@ -13,7 +13,7 @@
     </div>
     <div v-else>
       <div class="characters-ctr">
-        <characters class="characters" width="300" height="300" :number="n" />
+        <characters class="characters" width="70%" height="70%" :number="n" />
         <spinner v-show="loading" class="spinner" />
       </div>
       <div class="inputs">
@@ -33,7 +33,7 @@
         <h3>Explanation</h3>
       </template>
       <template #body>
-        <img width="350" height="350" src="/help.jpg" />
+        <img id="help-img" src="/help.png" />
       </template>
     </modal>
   </teleport>
@@ -153,18 +153,20 @@ main {
 
 .numbers {
   display: flex;
-  gap: 20px;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
 }
 
 .number {
-  width: 60px;
-  height: 60px;
+  width: 40px;
+  height: 40px;
   border-radius: 8px;
   outline: none;
   border: none;
   background-color: var(--secondary);
   text-align: center;
-  font-size: 24px;
+  font-size: 20px;
   color: white;
 }
 
@@ -215,5 +217,17 @@ main {
   position: relative;
   align-items: center;
   justify-content: center;
+}
+
+#help-img {
+  width: 350px;
+  height: 350px;
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+  #help-img {
+    width: 90%;
+    height: 90%;
+  }
 }
 </style>
