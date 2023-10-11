@@ -33,12 +33,13 @@ const { toasts } = storeToRefs(toastStore);
   margin: 0 auto;
   left: 0;
   right: 0;
+  z-index: 999;
 }
 
 .toast {
-  padding: 8px;
+  padding: 5px 12px;
   border-radius: 4px;
   color: white;
-  font-size: 14px;
+  font-size: 18px;
 }
 </style>
