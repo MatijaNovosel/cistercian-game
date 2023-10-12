@@ -18,10 +18,10 @@
       </div>
       <div class="inputs">
         <div class="numbers">
-          <input class="number" v-model="guessDigit1" />
-          <input class="number" v-model="guessDigit2" />
-          <input class="number" v-model="guessDigit3" />
-          <input class="number" v-model="guessDigit4" />
+          <input type="number" class="number" v-model="guessDigit1" />
+          <input type="number" class="number" v-model="guessDigit2" />
+          <input type="number" class="number" v-model="guessDigit3" />
+          <input type="number" class="number" v-model="guessDigit4" />
         </div>
         <btn @click="guess">Guess</btn>
       </div>
@@ -230,5 +230,11 @@ main {
     width: 90%;
     height: 90%;
   }
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 </style>
